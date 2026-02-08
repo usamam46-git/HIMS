@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import { Toaster } from 'sonner';
 import { Outlet } from 'react-router-dom';
 
 const RootLayout = () => {
@@ -13,6 +14,7 @@ const RootLayout = () => {
                     <Outlet />
                 </main>
             </div>
+            <Toaster richColors />
         </div>
     );
 };

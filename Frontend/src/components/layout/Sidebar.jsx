@@ -30,7 +30,8 @@ const Sidebar = () => {
         { icon: Receipt, label: "OPD Receipt", path: "/opd" },
         { icon: DollarSign, label: "Consultant Payments", path: "/consultant-payments" },
         { icon: Clock, label: "Shift Management", path: "/shift-management" },
-        { icon: FileText, label: "Reports", path: "/reports" },
+        { icon: Clock, label: "Shift Management", path: "/shift-management" },
+        { icon: FileText, label: "Reports", path: "/reports/shift" },
     ];
 
     return (

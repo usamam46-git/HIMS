@@ -9,6 +9,8 @@ import MRDetails from './pages/MRDetails';
 import OPDReceipt from './pages/OPDReceipt';
 import ConsultantPayments from './pages/ConsultantPayments';
 import ShiftManagement from './pages/ShiftManagement';
+import ReportsLayout from './pages/Reports/ReportsLayout';
+import ShiftReport from './pages/Reports/ShiftReport';
 
 function App() {
   return (
@@ -23,7 +25,14 @@ function App() {
           <Route path="opd" element={<OPDReceipt />} />
           <Route path="consultant-payments" element={<ConsultantPayments />} />
           <Route path="shift-management" element={<ShiftManagement />} />
-          <Route path="reports" element={<div className="p-4">Reports Module Placeholder</div>} />
+
+          <Route path="reports" element={<ReportsLayout />}>
+            <Route index element={<Navigate to="shift" replace />} />
+            <Route path="shift" element={<ShiftReport />} />
+            <Route path="daily" element={<div className="p-4">Daily Report Placeholder</div>} />
+            <Route path="monthly" element={<div className="p-4">Monthly Report Placeholder</div>} />
+            <Route path="yearly" element={<div className="p-4">Yearly Report Placeholder</div>} />
+          </Route>
 
           {/* Setup Routes */}
           <Route path="setup/doctors" element={<DoctorRegistration />} />
@@ -37,4 +46,3 @@ function App() {
 }
 
 export default App;
-

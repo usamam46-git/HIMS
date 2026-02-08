@@ -3,11 +3,14 @@ import { query } from '../config/db.js';
 // Get all expenses with optional filters
 export const getAllExpenses = async (req, res) => {
     try {
-        const { date, shift_id, shift_date } = req.query;
+        const { date, shift_id, shift_date, shift_type } = req.query;
         let sql = 'SELECT * FROM expenses WHERE 1=1';
         const params = [];
 
         if (date) {
+            // If checking for shift report, we might prefer shift_date if available in query, 
+            // but here we keep expense_date for backward compatibility if just 'date' is passed.
+            // However, the report will likely pass 'shift_date'.
             sql += ' AND expense_date = ?';
             params.push(date);
         }
@@ -18,6 +21,10 @@ export const getAllExpenses = async (req, res) => {
         if (shift_date) {
             sql += ' AND shift_date = ?';
             params.push(shift_date);
+        }
+        if (shift_type && shift_type !== 'All') {
+            sql += ' AND expense_shift = ?';
+            params.push(shift_type);
         }
 
         sql += ' ORDER BY expense_date DESC, expense_time DESC';

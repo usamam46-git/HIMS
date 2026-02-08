@@ -3,13 +3,17 @@ import { query } from '../config/db.js';
 // Get all OPD patient records with optional filters
 export const getAllPatients = async (req, res) => {
     try {
-        const { date, shift_id, shift_date, mr_number, opd_cancelled } = req.query;
+        const { date, startDate, endDate, shift_id, shift_date, shift_type, mr_number, opd_cancelled } = req.query;
         let sql = 'SELECT * FROM opd_patient_data WHERE 1=1';
         const params = [];
 
         if (date) {
             sql += ' AND date = ?';
             params.push(date);
+        }
+        if (startDate && endDate) {
+            sql += ' AND date BETWEEN ? AND ?';
+            params.push(startDate, endDate);
         }
         if (shift_id) {
             sql += ' AND shift_id = ?';
@@ -18,6 +22,10 @@ export const getAllPatients = async (req, res) => {
         if (shift_date) {
             sql += ' AND shift_date = ?';
             params.push(shift_date);
+        }
+        if (shift_type && shift_type !== 'All') {
+            sql += ' AND shift_type = ?';
+            params.push(shift_type);
         }
         if (mr_number) {
             sql += ' AND patient_mr_number = ?';
