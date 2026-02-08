@@ -34,7 +34,45 @@ CREATE TABLE IF NOT EXISTS shifts (
     -- Index for common queries
     INDEX idx_shift_date (shift_date),
     INDEX idx_is_closed (is_closed)
-) ENGINE=InnoDB AUTO_INCREMENT=5000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- =====================================================
+-- TABLE 0: mr_data (Patient Master Data)
+-- Stores permanent patient records
+-- =====================================================
+
+DROP TABLE IF EXISTS mr_data;
+
+CREATE TABLE mr_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mr_number VARCHAR(20) NOT NULL UNIQUE COMMENT 'Unique MR Number like MR-2026-00001',
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) DEFAULT NULL,
+    guardian_name VARCHAR(100) DEFAULT NULL,
+    guardian_relation VARCHAR(50) DEFAULT 'Parent',
+    cnic VARCHAR(20) DEFAULT NULL,
+    dob DATE DEFAULT NULL,
+    age INT DEFAULT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    phone VARCHAR(20) DEFAULT NULL,
+    email VARCHAR(100) DEFAULT NULL,
+    profession VARCHAR(100) DEFAULT NULL,
+    address TEXT DEFAULT NULL,
+    city VARCHAR(50) DEFAULT NULL,
+    blood_group VARCHAR(5) DEFAULT NULL,
+    status BOOLEAN DEFAULT TRUE COMMENT '1=Active, 0=Inactive',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    INDEX idx_mr_number (mr_number),
+    INDEX idx_phone (phone),
+    INDEX idx_cnic (cnic),
+    INDEX idx_name (first_name, last_name)
+) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- =====================================================
+-- TABLE 1: shifts (Active Shift Tracking)
 
 -- =====================================================
 -- TABLE 2: opd_services (Setup/Master Table)
@@ -54,6 +92,32 @@ CREATE TABLE IF NOT EXISTS opd_services (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
     INDEX idx_service_head (service_head),
+    INDEX idx_is_active (is_active)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- =====================================================
+-- TABLE 2.5: doctors (Consultant/Doctor Master Table)
+-- Stores registered doctors/consultants
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS doctors (
+    srl_no INT AUTO_INCREMENT PRIMARY KEY,
+    doctor_id VARCHAR(20) NOT NULL UNIQUE COMMENT 'Doctor code like DOC001',
+    doctor_name VARCHAR(100) NOT NULL,
+    doctor_specialization VARCHAR(100) DEFAULT NULL,
+    doctor_department VARCHAR(100) DEFAULT NULL,
+    doctor_qualification VARCHAR(200) DEFAULT NULL,
+    doctor_phone VARCHAR(20) DEFAULT NULL,
+    doctor_email VARCHAR(100) DEFAULT NULL,
+    doctor_address TEXT DEFAULT NULL,
+    doctor_share DECIMAL(5,2) DEFAULT 0.00 COMMENT 'Default share percentage',
+    consultation_fee DECIMAL(10,2) DEFAULT 0.00,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    INDEX idx_doctor_name (doctor_name),
+    INDEX idx_doctor_department (doctor_department),
     INDEX idx_is_active (is_active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

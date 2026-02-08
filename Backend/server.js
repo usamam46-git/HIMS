@@ -16,6 +16,8 @@ import consultantPaymentsRoutes from './routes/consultantPaymentsRoutes.js';
 import opdPatientDataRoutes from './routes/opdPatientDataRoutes.js';
 import opdShiftCashRoutes from './routes/opdShiftCashRoutes.js';
 import reportsRoutes from './routes/reportsRoutes.js';
+import doctorsRoutes from './routes/doctorsRoutes.js';
+import mrDataRoutes from './routes/mrDataRoutes.js';
 
 // Import middleware
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
@@ -57,6 +59,8 @@ app.use('/api/consultant-payments', consultantPaymentsRoutes);
 app.use('/api/opd-patient-data', opdPatientDataRoutes);
 app.use('/api/opd-shift-cash', opdShiftCashRoutes);
 app.use('/api/reports', reportsRoutes);
+app.use('/api/doctors', doctorsRoutes);
+app.use('/api/mr-data', mrDataRoutes);
 
 // Error handling middleware
 app.use(notFoundHandler);
@@ -86,6 +90,8 @@ const startServer = async () => {
             console.log(`   • GET  /api/opd-patient-data`);
             console.log(`   • GET  /api/opd-shift-cash`);
             console.log(`   • GET  /api/reports/daily?date=YYYY-MM-DD`);
+            console.log(`   • GET  /api/doctors`);
+            console.log(`   • GET  /api/mr-data`);
             console.log(`\n✅ Server is ready to accept connections\n`);
         });
     } catch (error) {
