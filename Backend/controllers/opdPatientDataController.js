@@ -83,7 +83,7 @@ export const createPatient = async (req, res) => {
         const {
             patient_mr_number, date, time, emergency_paid, patient_token_appointment,
             patient_checked, patient_requested_discount, patient_name, phone_number,
-            patient_age, patient_gender, patient_address, total_amount, discount,
+            patient_age, patient_gender, patient_address, opd_service, service_detail, total_amount, discount,
             payable, paid, balance, service_details, service_amount, opd_discount,
             discount_amount, discount_reason, discount_id, dr_share, dr_share_amount,
             hospital_share, shift_id, shift_type, shift_date
@@ -95,17 +95,17 @@ export const createPatient = async (req, res) => {
             `INSERT INTO opd_patient_data (
         receipt_id, patient_mr_number, date, time, emergency_paid, patient_token_appointment,
         patient_checked, patient_requested_discount, patient_name, phone_number,
-        patient_age, patient_gender, patient_address, total_amount, discount,
+        patient_age, patient_gender, patient_address, opd_service, service_detail, total_amount, discount,
         payable, paid, balance, service_details, service_amount, opd_discount,
         discount_amount, discount_reason, discount_id, dr_share, dr_share_amount,
         hospital_share, paid_to_doctor, opd_cancelled, opd_refund, shift_closed,
         shift_id, shift_type, shift_date
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, FALSE, FALSE, FALSE, FALSE, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, FALSE, FALSE, FALSE, FALSE, ?, ?, ?)`,
             [
                 receipt_id, patient_mr_number, date, time, emergency_paid || false,
                 patient_token_appointment || false, patient_checked || false,
                 patient_requested_discount || false, patient_name, phone_number,
-                patient_age, patient_gender, patient_address, total_amount, discount || 0,
+                patient_age, patient_gender, patient_address, opd_service, service_detail, total_amount, discount || 0,
                 payable, paid || 0, balance || 0,
                 typeof service_details === 'object' ? JSON.stringify(service_details) : service_details,
                 service_amount || 0, opd_discount || false, discount_amount || 0,

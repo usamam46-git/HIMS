@@ -6,6 +6,9 @@ import RootLayout from './components/layout/RootLayout';
 import DoctorRegistration from './pages/setup/DoctorRegistration';
 import OPDServicesSetup from './pages/setup/OPDServicesSetup';
 import MRDetails from './pages/MRDetails';
+import OPDReceipt from './pages/OPDReceipt';
+import ConsultantPayments from './pages/ConsultantPayments';
+import ShiftManagement from './pages/ShiftManagement';
 
 function App() {
   return (
@@ -17,7 +20,9 @@ function App() {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="mr-details" element={<MRDetails />} />
-          <Route path="opd" element={<div className="p-4">OPD Module Placeholder</div>} />
+          <Route path="opd" element={<OPDReceipt />} />
+          <Route path="consultant-payments" element={<ConsultantPayments />} />
+          <Route path="shift-management" element={<ShiftManagement />} />
           <Route path="reports" element={<div className="p-4">Reports Module Placeholder</div>} />
 
           {/* Setup Routes */}
@@ -32,3 +37,4 @@ function App() {
 }
 
 export default App;
+

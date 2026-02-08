@@ -16,7 +16,7 @@ router.get('/date/:date', controller.getShiftsByDate);
 router.get('/:id', controller.getShiftById);
 
 // POST open new shift
-router.post('/open', controller.openShift);
+router.post('/', controller.openShift);
 
 // PUT close shift
 router.put('/:id/close', controller.closeShift);

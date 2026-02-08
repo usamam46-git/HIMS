@@ -11,7 +11,10 @@ import {
     Settings,
     LogOut,
     User,
-    Hospital
+    Hospital,
+    Receipt,
+    DollarSign,
+    Clock
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -24,7 +27,9 @@ const Sidebar = () => {
     const navItems = [
         { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
         { icon: User, label: "MR Details", path: "/mr-details" },
-        { icon: Stethoscope, label: "OPD", path: "/opd" },
+        { icon: Receipt, label: "OPD Receipt", path: "/opd" },
+        { icon: DollarSign, label: "Consultant Payments", path: "/consultant-payments" },
+        { icon: Clock, label: "Shift Management", path: "/shift-management" },
         { icon: FileText, label: "Reports", path: "/reports" },
     ];
 
